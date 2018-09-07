@@ -1,0 +1,19 @@
+{
+  "name": "secret-messenger",
+  "version": "1.0.0",
+  "description": "Superficially Encrypted Chat App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TimFlaherty/secret-messenger.git"
+  },
+  "author": "Tim Flaherty",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/TimFlaherty/secret-messenger/issues"
+  },
+  "homepage": "https://github.com/TimFlaherty/secret-messenger#readme"
+}
