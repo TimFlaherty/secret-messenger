@@ -1,73 +1,22 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Secret Messenger</title>
-	<link rel="stylesheet" href="/style">
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-    var toggle = 0;
-    function show() {
-    	var secret = $('#secret').val();
-    	var convo = $('#messages li');
-    	convo.each(function(i){
-    		var thisLine = this;
-			var messg = $(this).text();
-			var resp = '';
-			$.ajax({url: '/decrypt', 
-				type: 'post',
-				data: {
-					key: secret,
-					msg: messg
-				}
-			}).done(function (data) {
-				$(thisLine).text(data);
-			})
-		});
-		toggle = 1;
-	}
-	
-	function hide() {
-    	var secret = $('#secret').val();
-    	var convo = $('#messages li');
-    	convo.each(function(i){
-    		var thisLine = this;
-			var messg = $(this).text();
-			var resp = '';
-			$.ajax({url: '/recrypt', 
-				type: 'post',
-				data: {
-					key: secret,
-					msg: messg
-				}
-			}).done(function (data) {
-				$(thisLine).text(data);
-			})
-		});
-		toggle = 0;
-	}
-    </script>
-  </head>
-  <body>
-	<div>Enter the secret word: <input id="secret" type="text"><button onclick="if(toggle==0){show()} else{hide()}">Show/Hide</button></div>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    
-    <script>
-      $(function () {
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li class="u2">').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
-      });
-    </script>
-  </body>
+	<head>
+		<title>Secret Messenger</title>
+		<link rel="stylesheet" href="/style">
+		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<script>
+			function go() {
+				window.location='/chat?id='+$('#secret').val();
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Welcome to Secret Messenger!</h1>
+		<div>Enter your secret word: 
+			<br>
+			<input id="secret" type="text">
+			<br>
+			<button onclick="go()">Start Chat</button>
+		</div>
+	</body>
 </html>
