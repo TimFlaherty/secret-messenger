@@ -1,4 +1,4 @@
-# Secret Messenger v0.1
+# Secret Messenger v0.2
 ### Superficially Encrypted Chat App
 
 Secret Messenger is a simple chat app which 
@@ -23,12 +23,12 @@ npm install
 
 Initialize server:
 ```bash
-node app.js
+npm start
 ```
 
 By default, Secret Messenger will serve to localhost:3030.
 To use Secret Messenger, navigate to localhost:3030 and
-start typing! The default secret word is 'traps'.
+start a chat!
 
 Thanks to Socket.IO for providing an awesome 
 starting point with their chat example:

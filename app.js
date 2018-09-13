@@ -4,6 +4,7 @@ const http = require('http').Server(app);
 const https = require('https').Server(app);
 const io = require('socket.io')(http);
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3030;
 
@@ -14,31 +15,39 @@ const {crypt, dcrypt} = require('./crypt.js');
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
+//cookieParser for session handling
+app.use(cookieParser());
+
 //Initialize EJS templating engine
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
 
 //Serve index
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/index.html');
 });
 
 //Serve CSS
 app.get('/style', function(req, res){
-  res.sendFile(__dirname + '/sm.css');
+	res.sendFile(__dirname + '/sm.css');
 });
 
 //Serve chat
 app.get('/chat', function(req, res){
-  res.render(__dirname + '/chat.html', {id: req.query.id});
+	res.render(__dirname + '/chat.html', {id: req.query.id});
 	//Socket chat namespace defined by secret word
 	var chat = io.of('/'+req.query.id);
 	chat.on('connection', function(socket){
 		chat.removeAllListeners();
-		//console.log('new user connected');
-		//console.log(req.query.id);
 		socket.on(req.query.id, function(msg){
-			chat.emit(req.query.id, crypt(req.query.id, msg));
+			chat.emit(req.query.id, 
+				{ 
+					raw: msg,
+					crypted: crypt(req.cookies.secret, msg),
+					sn: req.cookies.sn,
+					ucolor: req.cookies.ucolor
+				}
+			);
 		});
 	});
 });
@@ -51,7 +60,7 @@ app.post('/decrypt', function(req, res){
 });
 
 //Encryption API
-app.post('/recrypt', function(req, res){
+app.post('/encrypt', function(req, res){
 	var key = req.body.key;
 	var msg = req.body.msg;
 	res.send(crypt(key, msg));

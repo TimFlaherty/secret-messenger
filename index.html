@@ -5,8 +5,23 @@
 		<link rel="stylesheet" href="/style">
 		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 		<script>
+			//Initialization function sets cookie and redirects to chat template
 			function go() {
-				window.location='/chat?id='+$('#secret').val();
+				var secret = $('#secret').val();
+				var sn = $('#sn').val();
+				var ucolor = $('#ucolor').val();
+				document.cookie = "secret="+secret;
+				document.cookie = "sn="+sn;
+				document.cookie = "ucolor="+ucolor;
+				$.ajax({url: '/encrypt', 
+					type: 'post',
+					data: {
+						key: secret,
+						msg: secret,
+					}
+				}).done(function (data) {
+					window.location='/chat?id='+data;
+				})
 			}
 		</script>
 	</head>
@@ -15,8 +30,16 @@
 		<div>Enter your secret word: 
 			<br>
 			<input id="secret" type="text">
+			<br><br>
+			Enter your screen name: 
 			<br>
-			<button onclick="go()">Start Chat</button>
+			<input id="sn" type="text" placeholder="New User">
+			<br><br>
+			Pick your color: 
+			<br>
+			<input id="ucolor" type="color" value="#30c7b0">
+			<br><br>
+			<button onclick="go()">Join Chat</button>
 		</div>
 	</body>
 </html>
