@@ -3,7 +3,8 @@
 	<head>
 		<title>Secret Messenger</title>
 		<link rel="stylesheet" href="/style">
-		<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script>
 			//Initialization function sets cookie and redirects to chat template
 			function go() {
@@ -26,20 +27,27 @@
 		</script>
 	</head>
 	<body>
+	<div class="container">
 		<h1>Welcome to Secret Messenger!</h1>
-		<div>Enter your secret word: 
-			<br>
-			<input id="secret" type="text">
-			<br><br>
-			Enter your screen name: 
-			<br>
-			<input id="sn" type="text" placeholder="New User">
-			<br><br>
-			Pick your color: 
-			<br>
-			<input id="ucolor" type="color" value="#30c7b0">
-			<br><br>
-			<button onclick="go()">Join Chat</button>
+		<div>
+			<form action="go()">
+				Enter your secret word: 
+				<br>
+				<input id="secret" type="text" class="form-control">
+				<br><br>
+				Enter your screen name: 
+				<br>
+				<input id="sn" type="text" class="form-control" placeholder="New User">
+				<br><br>
+				Pick your color: 
+				<br>
+				<input id="ucolor" type="color" class="form-control" value="#30c7b0">
+				<br><br>
+				<button onclick="go()" class="form-control">Join Chat</button>
+			</form>
 		</div>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+	</div>
 	</body>
 </html>
