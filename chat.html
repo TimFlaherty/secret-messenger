@@ -71,31 +71,71 @@
 		});
 		toggle = 0;
 	}
+	
+	//Converts hex color values to RGB
+	function hexToRgb(hex) {
+		var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+		return result
+		? [
+			parseInt(result[1], 16),
+			parseInt(result[2], 16),
+			parseInt(result[3], 16)
+		]
+		: [0, 0, 0];
+	}
+	
+	//Selects black or white text based on hex color input
+	function lum(hex) {
+		var rgb = hexToRgb(hex)
+		var lrgb = [];
+		rgb.forEach(function(c) {
+			c = c / 255.0;
+			if (c <= 0.03928) {
+				c = c / 12.92;
+			} else {
+				c = Math.pow((c + 0.055) / 1.055, 2.4);
+			}
+			lrgb.push(c);
+		});
+		var lum = 0.2126 * lrgb[0] + 0.7152 * lrgb[1] + 0.0722 * lrgb[2];
+		return lum > 0.179 ? "#000000" : "#ffffff";
+	}
     </script>
   </head>
   <body>
-	<div><button onclick="if(toggle==0){show()} else{hide()}">Toggle Encryption</button></div>
+	<div><button class="form-control btn btn-secondary" onclick="if(toggle==0){show()} else{hide()}">Toggle Encryption</button></div>
     <ul id="messages"></ul>
     <form id="entry">
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     
-    <script>  
+    <script>  	
 	//Socket chat client function
     $(function () {
 		var socket = io('/<%=id%>');
+		
 		$('form').submit(function(){
 			socket.emit('<%=id%>', $('#m').val());
 			$('#m').val('');
 			return false;
 		});
-		socket.on('<%=id%>', function(msg){
-		if(toggle==0){
-			$('#messages').append($('<li style="background:'+msg.ucolor+'">'+msg.sn+': <span class="msg">'+msg.crypted+'</span>'));
-		} else if(toggle==1){
-			$('#messages').append($('<li style="background:'+msg.ucolor+'">'+msg.sn+': <span class="msg">'+msg.raw+'</span>'));
-		};
-			
+		
+		//Emits greeting on new user connection
+		socket.on('hello', function(msg){	
+			var textColor = lum(msg.ucolor);
+			$('#messages').append($('<li style="background:'+msg.ucolor+';color:'+textColor+'">'+msg.greeting+'</li>'));
+		});
+		
+		//Emits user messages, controls encryption
+		socket.on('<%=id%>', function(msg){		
+			var textColor = lum(msg.ucolor);
+			var message;
+			if(toggle==0){
+				message=msg.crypted;
+			} else if(toggle==1){
+				message=msg.raw;
+			};
+			$('#messages').append($('<li style="background:'+msg.ucolor+';color:'+textColor+'">'+msg.sn+': <span class="msg">'+message+'</span></li>'));
 			window.scrollTo(0, document.body.scrollHeight);
 		});
 	});

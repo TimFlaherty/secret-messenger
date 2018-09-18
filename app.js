@@ -38,6 +38,11 @@ app.get('/chat', function(req, res){
 	//Socket chat namespace defined by secret word
 	var chat = io.of('/'+req.query.id);
 	chat.on('connection', function(socket){
+		chat.emit('hello', 
+			{
+				greeting: req.cookies.sn+' joined the chat',
+				ucolor: req.cookies.ucolor
+			});
 		chat.removeAllListeners();
 		socket.on(req.query.id, function(msg){
 			chat.emit(req.query.id, 
