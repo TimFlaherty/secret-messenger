@@ -1,17 +1,49 @@
-* { 
-	margin: 0; 
-	padding: 0; 
-	box-sizing: border-box; 
-}
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
 
 body { 
-	font: 13px Helvetica, Arial; 
+	margin: 0; 
+	padding: 0; 
+	/*font: 13px Helvetica, Arial*/; 
+}
+
+h1 {
+	font-family: Pacifico;
+	text-align: center;
+	padding:10px;
+}
+
+.halfie {
+	width:50%;
+	margin:auto;
+}
+
+.btn {
+	width:100%;
+}
+
+#chattainer {
+	margin:0;
+	padding:0;
+}
+
+.navbar {
+	background-color:#FFFFFF;
+	padding:0;
+}
+
+.margin-top-bottom {
+	margin-top: 50px;
+	margin-bottom: 60px;
+	padding:0;
+}
+
+#board {
+	
 }
 
 #entry { 
 	background: #000; 
 	padding: 3px; 
-	position: fixed; 
 	bottom: 0; 
 	width: 100%; 
 }
@@ -19,20 +51,21 @@ body {
 #entry input { 
 	border: 0; 
 	padding: 10px; 
-	width: 90%; 
+	width: 85%; 
 	margin-right: .5%; 
 }
 
 #entry button { 
-	width: 9%; 
+	width: 14%; 
 	background: rgb(130, 224, 255); 
 	border: none; 
-	padding: 10px; 
+	padding-top:10px;
+	padding-bottom:10px;
 }
 
 #messages { 
 	list-style-type: none; 
-	margin: 0; 
+	margin:auto; 
 	padding: 0; 
 }
 
@@ -40,6 +73,19 @@ body {
 	padding: 5px 10px; 
 }
 
-#messages { 
-	margin-bottom: 40px 
+.wrapit {
+	word-wrap: break-word;
+}
+
+/* Mobile */
+@media screen and (max-width:768px) {
+	.halfie {
+		width:100%;
+	}
+}
+
+@media screen and (max-height:480px) {
+	.halfie {
+		width:100%;
+	}
 }

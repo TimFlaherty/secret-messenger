@@ -32,6 +32,11 @@ app.get('/style', function(req, res){
 	res.sendFile(__dirname + '/sm.css');
 });
 
+//Serve JS
+app.get('/script', function(req, res){
+	res.sendFile(__dirname + '/sm.js');
+});
+
 //Serve chat
 app.get('/chat', function(req, res){
 	res.render(__dirname + '/chat.html', {id: req.query.id});

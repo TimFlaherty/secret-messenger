@@ -1,13 +1,11 @@
-# Secret Messenger v0.2
+# Secret Messenger v0.3
 ### Superficially Encrypted Chat App
 
 Secret Messenger is a simple chat app which 
 encrypts and decrypts messages using a secret 
 word or phrase defined by the user. NodeJS
 serves a Socket.IO chat room and also provides
-an encrypt/decrypt API. Because the encryption
-is API-based, security is only superficial, as
-the key is exposed by network requests.
+an encrypt/decrypt API. 
 
 ### Installation & Use
 Clone the repository:
