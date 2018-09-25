@@ -77,6 +77,12 @@ h1 {
 	word-wrap: break-word;
 }
 
+#eraser {
+	display:block;
+	margin:auto;
+	padding-top:10%;
+}
+
 /* Mobile */
 @media screen and (max-width:768px) {
 	.halfie {

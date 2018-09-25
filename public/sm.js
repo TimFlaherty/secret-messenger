@@ -13,7 +13,11 @@ function go() {
 			msg: secret
 		}
 	}).done(function (data) {
-		window.location="/chat?id="+data;
+		setTimeout(function(){
+			window.location="/chat?id="+data;
+		}, 1000);
+		//$('.container-fluid').html('<img id="eraser" src="sm.gif" alt="ERASED">');
+		cypher();
 	})
 }
 
@@ -60,10 +64,46 @@ function hide() {
 
 //Erases chat and cached messages
 function erase() {
-	$('#messages').html('');
-	chatray = [];
-	nochatray = [];
-	toggle=0;
+	setTimeout(function(){
+		$('#messages').html('');
+		chatray = [];
+		nochatray = [];
+		toggle=0;
+	}, 1000);
+	//$('#messages').html('<img id="eraser" src="sm.gif" alt="ERASED">');
+	$('#messages').html('<br><br><br><br><h1><span id="trgt1">Secret</span> <br><span id="trgt2">Messenger</span></h1>');
+	cypher();
+}
+
+//Parses "Secret Messenger" heading characters and converts to hex one by one
+function cypher() {
+	var text1 = $("#trgt1").text();
+	var textray1 = text1.split("");
+	var crypted1 = "788D9E";
+	var cryptray1 = crypted1.split(""); 
+	
+	var text2 = $("#trgt2").text();
+	var textray2 = text2.split("");
+	var crypted2 = "08EDF167E";
+	var cryptray2 = crypted2.split(""); 
+	
+	var i1 = 0;
+	var interval1 = setInterval(function(){
+		textray1[i1] = cryptray1[i1++];
+		$("#trgt1").text(textray1.join(""));
+		if(i1 == textray1.length){
+    		clearInterval(interval1);
+    	}
+	}, 150)
+	
+	var i2 = textray2.length;
+	var interval2 = setInterval(function(){
+		textray2[i2] = cryptray2[i2--];
+		$("#trgt2").text(textray2.join(""));
+		if(i2 < 0){
+    		clearInterval(interval2);
+    	}
+	}, 100)
 }
 
 //Converts hex color values to RGB
