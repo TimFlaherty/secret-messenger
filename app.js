@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3030;
 
+const express = require('express');
+
 //Include encryption module
 const {crypt, dcrypt} = require('./crypt.js');
 
@@ -21,21 +23,6 @@ app.use(cookieParser());
 //Initialize EJS templating engine
 app.engine('.html', require('ejs').__express);
 app.set('view engine', 'html');
-
-//Serve index
-app.get('/', function(req, res){
-	res.sendFile(__dirname + '/index.html');
-});
-
-//Serve CSS
-app.get('/style', function(req, res){
-	res.sendFile(__dirname + '/sm.css');
-});
-
-//Serve JS
-app.get('/script', function(req, res){
-	res.sendFile(__dirname + '/sm.js');
-});
 
 //Serve chat
 app.get('/chat', function(req, res){
@@ -75,6 +62,9 @@ app.post('/encrypt', function(req, res){
 	var msg = req.body.msg;
 	res.send(crypt(key, msg));
 });
+
+//Static file server for files in the /public folder
+app.use(express.static(__dirname + '/public'));
 
 //Serve to port and log message
 http.listen(port, function(){
