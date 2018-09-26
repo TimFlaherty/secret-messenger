@@ -16,7 +16,6 @@ function go() {
 		setTimeout(function(){
 			window.location="/chat?id="+data;
 		}, 1000);
-		//$('.container-fluid').html('<img id="eraser" src="sm.gif" alt="ERASED">');
 		cypher();
 	})
 }
@@ -50,6 +49,7 @@ function show() {
 	convo.each(function(i){
 		$(this).text(chatray[i]);
 	});
+	$("#toggle").html('<i class="fas fa-eye-slash"></i>');
 	toggle = 1;
 }
 
@@ -59,6 +59,7 @@ function hide() {
 	convo.each(function(i){
 		$(this).text(nochatray[i]);
 	});
+	$("#toggle").html('<i class="fas fa-eye"></i>');
 	toggle = 0;
 }
 
@@ -70,8 +71,16 @@ function erase() {
 		nochatray = [];
 		toggle=0;
 	}, 1000);
-	//$('#messages').html('<img id="eraser" src="sm.gif" alt="ERASED">');
 	$('#messages').html('<br><br><br><br><h1><span id="trgt1">Secret</span> <br><span id="trgt2">Messenger</span></h1>');
+	cypher();
+}
+
+//Quits to index
+function quit() {
+	setTimeout(function(){
+		window.location="/index.html";
+	}, 1000);
+	$('body').html('<br><br><br><br><br><br><br><h1><span id="trgt1">Secret</span> <br><span id="trgt2">Messenger</span></h1>');
 	cypher();
 }
 

@@ -4,10 +4,6 @@ FUNCTIONALITY
 STYLE
 - Style chat input
 
-- Add quit button
-
-- Move encryption toggle button to footer (left of input for ease of access)
-
 SECURITY
 - Refactor initialization function to use cookie instead of ajax call
 

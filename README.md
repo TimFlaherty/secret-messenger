@@ -1,4 +1,4 @@
-# Secret Messenger v0.4
+# Secret Messenger v0.5
 ### Superficially Encrypted Chat App
 
 Secret Messenger is a simple chat app which 
