@@ -78,6 +78,9 @@ function erase() {
 //Quits to index
 function quit() {
 	setTimeout(function(){
+		document.cookie = "secret=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		document.cookie = "sn=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+		document.cookie = "ucolor=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 		window.location="/index.html";
 	}, 1000);
 	$('body').html('<br><br><br><br><br><br><br><h1><span id="trgt1">Secret</span> <br><span id="trgt2">Messenger</span></h1>');

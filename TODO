@@ -1,6 +1,8 @@
 FUNCTIONALITY
 - Add color select polyfill for Safari/iOS
 
+- Add user disconnect message
+
 STYLE
 - Style chat input
 
