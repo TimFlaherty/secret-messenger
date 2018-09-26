@@ -32,7 +32,7 @@
 			$('#messages').append($('<li style="background:'+msg.ucolor+';color:'+textColor+'">'+msg.greeting+'</li>'));
 		});
 		
-		//Emits user messages, controls encryption
+		//Emits user messages
 		socket.on('<%=id%>', function(msg){		
 			chatray.push(msg.raw);
 			nochatray.push(msg.crypted);
@@ -45,7 +45,6 @@
 			};
 			$('#messages').append($('<li class="wrapit" style="background:'+msg.ucolor+';color:'+textColor+'">'+msg.sn+': <span class="msg">'+message+'</span></li>'));
 			window.scrollTo(0, document.body.scrollHeight);
-			//$('#board').scrollTop($('#board')[0].scrollHeight);
 		});
 	});
     </script>

@@ -20,6 +20,22 @@ function go() {
 	})
 }
 
+//String.includes() polyfill for IE
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+    
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
+}
+
 //Parse variables from cookie data
 var sn = '';
 var ucolor = '';
